@@ -12,7 +12,6 @@ jobs:
       - name: Set Label
         uses: actions/github-script@v5
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const columnId = context.payload.changes.column_id.from;
             const issueId = context.payload.card.content_url.split('/').pop();

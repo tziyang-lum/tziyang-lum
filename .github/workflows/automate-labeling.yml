@@ -1,1 +1,21 @@
+name: Auto-label on Project Card Move
+
+on:
+  project_card:
+    types:
+      - moved
+
+jobs:
+  auto-label:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set Label
+        uses: actions/github-script@v5
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const columnId = context.payload.changes.column_id.from;
+            const issueId = context.payload.card.content_url.split('/').pop();
+            const labelToAdd = 'your-label-name';
+            github.issues.addLabels({ issue_number: issueId, owner: context.repo.owner, repo: context.repo.repo, labels: [labelToAdd] });
 
